@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Which Whisky Are You?</title>
+    <style>
+        :root {
+            --glenfiddich-color: #d4af37;
+            --lagavulin-color: #8b4513;
+            --glenlivet-color: #c19a6b;
+            --macallan-color: #b87333;
+            --indri-color: #5d4037;
+            --yamazaki-color: #cd7f32;
+            --rampur-color: #a05a2c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: background-color 0.5s ease;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .question.active {
+            display: block;
+        }
+        
+        .question h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .option {
+            background-color: #f1f1f1;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-container {
+            margin-top: 2rem;
+            background-color: #e1e1e1;
+            border-radius: 10px;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background-color: #555;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        
+        .result.active {
+            display: block;
+        }
+        
+        .result h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .result-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .restart-btn {
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.2s ease;
+        }
+        
+        .restart-btn:hover {
+            background-color: #333;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Whisky-specific themes */
+        .glenfiddich-theme {
+            background-color: #fdf7e3;
+        }
+        .glenfiddich-theme .progress-bar,
+        .glenfiddich-theme .restart-btn,
+        .glenfiddich-theme .result-image {
+            background-color: var(--glenfiddich-color);
+        }
+        
+        .lagavulin-theme {
+            background-color: #f5efe7;
+        }
+        .lagavulin-theme .progress-bar,
+        .lagavulin-theme .restart-btn,
+        .lagavulin-theme .result-image {
+            background-color: var(--lagavulin-color);
+        }
+        
+        .glenlivet-theme {
+            background-color: #f9f3e9;
+        }
+        .glenlivet-theme .progress-bar,
+        .glenlivet-theme .restart-btn,
+        .glenlivet-theme .result-image {
+            background-color: var(--glenlivet-color);
+        }
+        
+        .macallan-theme {
+            background-color: #f9efe4;
+        }
+        .macallan-theme .progress-bar,
+        .macallan-theme .restart-btn,
+        .macallan-theme .result-image {
+            background-color: var(--macallan-color);
+        }
+        
+        .indri-theme {
+            background-color: #efe5dc;
+        }
+        .indri-theme .progress-bar,
+        .indri-theme .restart-btn,
+        .indri-theme .result-image {
+            background-color: var(--indri-color);
+        }
+        
+        .yamazaki-theme {
+            background-color: #f7e8d5;
+        }
+        .yamazaki-theme .progress-bar,
+        .yamazaki-theme .restart-btn,
+        .yamazaki-theme .result-image {
+            background-color: var(--yamazaki-color);
+        }
+        
+        .rampur-theme {
+            background-color: #f7e8d5;
+        }
+        .rampur-theme .progress-bar,
+        .rampur-theme .restart-btn,
+        .rampur-theme .result-image {
+            background-color: var(--rampur-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Which Whisky Are You?</h1>
+            <p>Answer these questions to discover which whisky matches your personality!</p>
+        </header>
+        
+        <div class="quiz-container">
+            <div id="quiz">
+                <!-- Questions will be loaded here -->
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+        </div>
+        
+        <div class="result" id="result">
+            <div class="result-image" id="result-image">🥃</div>
+            <h2 id="result-title">You are Glenfiddich 14!</h2>
+            <p id="result-description"></p>
+            <button class="restart-btn" id="restart-btn">Take the Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How would you describe your approach to life?",
+                options: [
+                    { text: "Balanced and versatile - I adapt well to different situations", whisky: "glenfiddich" },
+                    { text: "Bold and distinctive - I'm not afraid to stand out", whisky: "lagavulin" },
+                    { text: "Smooth and approachable - I get along with nearly everyone", whisky: "glenlivet" },
+                    { text: "Rich and refined - I appreciate the finer things in life", whisky: "macallan" },
+                    { text: "Complex and worldly - I embrace diverse influences", whisky: "indri" },
+                    { text: "Precise and harmonious - I value balance in all things", whisky: "yamazaki" },
+                    { text: "Adventurous with a touch of tradition - I blend old and new", whisky: "rampur" }
+                ]
+            },
+            {
+                question: "What's your preferred social setting?",
+                options: [
+                    { text: "Casual gatherings with good friends", whisky: "glenfiddich" },
+                    { text: "Intimate fireside conversations", whisky: "lagavulin" },
+                    { text: "Relaxed dinner parties with interesting conversation", whisky: "glenlivet" },
+                    { text: "Upscale events with a sophisticated crowd", whisky: "macallan" },
+                    { text: "Cultural exchanges with diverse groups of people", whisky: "indri" },
+                    { text: "Peaceful, contemplative settings with close friends", whisky: "yamazaki" },
+                    { text: "Vibrant gatherings that blend tradition with contemporary elements", whisky: "rampur" }
+                ]
+            },
+            {
+                question: "Which flavor profile appeals to you most?",
+                options: [
+                    { text: "Sweet with hints of pear and oak", whisky: "glenfiddich" },
+                    { text: "Smoky, peaty with sea salt and campfire", whisky: "lagavulin" },
+                    { text: "Smooth, fruity with notes of vanilla", whisky: "glenlivet" },
+                    { text: "Rich sherry with dried fruits and spice", whisky: "macallan" },
+                    { text: "Complex with tropical fruits and subtle spices", whisky: "indri" },
+                    { text: "Delicate, balanced with honeyed fruit", whisky: "yamazaki" },
+                    { text: "Tropical fruits and caramel with a hint of spice", whisky: "rampur" }
+                ]
+            },
+            {
+                question: "How do you approach challenges?",
+                options: [
+                    { text: "With versatility and resourcefulness", whisky: "glenfiddich" },
+                    { text: "Head-on with bold confidence", whisky: "lagavulin" },
+                    { text: "With consistent, methodical effort", whisky: "glenlivet" },
+                    { text: "By applying refined expertise and experience", whisky: "macallan" },
+                    { text: "Drawing from diverse perspectives and approaches", whisky: "indri" },
+                    { text: "With patience, precision and harmony", whisky: "yamazaki" },
+                    { text: "Blending traditional wisdom with innovative thinking", whisky: "rampur" }
+                ]
+            },
+            {
+                question: "What's your ideal vacation destination?",
+                options: [
+                    { text: "The Scottish Highlands - natural beauty with history", whisky: "glenfiddich" },
+                    { text: "Remote coastal island with dramatic landscapes", whisky: "lagavulin" },
+                    { text: "Peaceful countryside with rolling hills", whisky: "glenlivet" },
+                    { text: "Luxury resort with exceptional service", whisky: "macallan" },
+                    { text: "Cultural immersion in a vibrant, exotic location", whisky: "indri" },
+                    { text: "Serene, meditative natural setting with cultural significance", whisky: "yamazaki" },
+                    { text: "Historic destination with both ancient traditions and modern attractions", whisky: "rampur" }
+                ]
+            },
+            {
+                question: "How would your friends describe your personality?",
+                options: [
+                    { text: "Approachable yet complex - there's always more to discover", whisky: "glenfiddich" },
+                    { text: "Distinctive and memorable - not for everyone but deeply appreciated", whisky: "lagavulin" },
+                    { text: "Reliable and pleasant - consistently enjoyable company", whisky: "glenlivet" },
+                    { text: "Sophisticated and refined - attentive to quality and detail", whisky: "macallan" },
+                    { text: "Multicultural and nuanced - bringing unexpected combinations", whisky: "indri" },
+                    { text: "Subtle and balanced - thoughtful with hidden depths", whisky: "yamazaki" },
+                    { text: "Warm and inviting with surprising complexity", whisky: "rampur" }
+                ]
+            },
+            {
+                question: "What's your approach to trying new things?",
+                options: [
+                    { text: "I enjoy new experiences within comfortable parameters", whisky: "glenfiddich" },
+                    { text: "I seek out intense, memorable experiences", whisky: "lagavulin" },
+                    { text: "I appreciate reliable excellence with subtle variations", whisky: "glenlivet" },
+                    { text: "I look for premium quality and craftsmanship", whisky: "macallan" },
+                    { text: "I embrace fusion and cross-cultural experiences", whisky: "indri" },
+                    { text: "I value harmony, balance and attention to detail", whisky: "yamazaki" },
+                    { text: "I enjoy traditional experiences with contemporary twists", whisky: "rampur" }
+                ]
+            }
+        ];
+
+        const whiskyDescriptions = {
+            glenfiddich: "You are Glenfiddich 14! Like this Bourbon Barrel Reserve, you're versatile and approachable yet complex. You have a perfect balance of tradition and innovation in your life. People are drawn to your warm personality that's simultaneously familiar and intriguing. You adapt well to different situations while maintaining your distinctive character.",
+            
+            lagavulin: "You are Lagavulin 16! Bold, distinctive and unforgettable - you make a strong impression wherever you go. Like this iconic Islay single malt, you're not afraid to stand out with your intense character. Those who appreciate you do so deeply, recognizing your complex layers beneath the powerful first impression. You bring depth and unique perspective to any situation.",
+            
+            glenlivet: "You are Glenlivet 15! Smooth, refined and consistently excellent - you're the friend everyone loves to have around. Like this classic Speyside whisky finished in French oak, you bring a reliable warmth with subtle complexities that reveal themselves over time. You navigate life's challenges with grace and maintain a balanced approach that others find comforting.",
+            
+            macallan: "You are Macallan 12! Sophisticated, rich and refined - you appreciate quality in all aspects of life. Like this sherry oak-matured single malt, you bring a depth and complexity to your relationships. You have impeccable taste and an eye for detail. Your warm personality has layers of nuance that reward those who take the time to know you better.",
+            
+            indri: "You are Indri Trini Three Wood! Innovative and complex, you embody a beautiful fusion of traditions. Like this distinctive Indian whisky aged in three different barrels, you draw from diverse influences to create something uniquely your own. You're adventurous yet grounded, bringing unexpected combinations of ideas and perspectives to everything you do.",
+            
+            yamazaki: "You are Yamazaki 12! Precise, balanced and harmonious - you embody thoughtful refinement. Like this celebrated Japanese whisky, you blend tradition with subtle innovation. You value craftsmanship and attention to detail in all things. Your approach to life is measured and mindful, creating harmony in whatever environment you find yourself in.",
+            
+            rampur: "You are Rampur Double Cask! Adventurous yet respectful of tradition, you bridge different worlds with ease. Like this Indian single malt aged in both American oak and sherry casks, you bring together contrasting elements in a harmonious way. You have a warm, inviting personality with surprising depths and a touch of the exotic that makes you truly distinctive."
+        };
+
+        // State tracking
+        let currentQuestion = 0;
+        const scores = {
+            glenfiddich: 0,
+            lagavulin: 0,
+            glenlivet: 0,
+            macallan: 0,
+            indri: 0,
+            yamazaki: 0,
+            rampur: 0
+        };
+
+        // DOM Elements
+        const quizContainer = document.getElementById('quiz');
+        const progressBar = document.getElementById('progress');
+        const resultContainer = document.getElementById('result');
+        const resultTitle = document.getElementById('result-title');
+        const resultDescription = document.getElementById('result-description');
+        const resultImage = document.getElementById('result-image');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Initialize the quiz
+        function initQuiz() {
+            renderQuestion();
+            restartBtn.addEventListener('click', restartQuiz);
+        }
+
+        // Render a question
+        function renderQuestion() {
+            quizContainer.innerHTML = '';
+            
+            if (currentQuestion < questions.length) {
+                const questionData = questions[currentQuestion];
+                
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question active';
+                
+                questionElement.innerHTML = `
+                    <h2>${questionData.question}</h2>
+                    <div class="options">
+                        ${questionData.options.map((option, index) => `
+                            <div class="option" data-whisky="${option.whisky}">
+                                ${option.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                quizContainer.appendChild(questionElement);
+                
+                // Add event listeners to options
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.addEventListener('click', handleOptionClick);
+                });
+                
+                // Update progress bar
+                updateProgress();
+            } else {
+                showResult();
+            }
+        }
+
+        // Handle option click
+        function handleOptionClick(e) {
+            const selectedWhisky = e.target.getAttribute('data-whisky');
+            scores[selectedWhisky]++;
+            
+            currentQuestion++;
+            renderQuestion();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentQuestion / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Show result
+        function showResult() {
+            // Find the highest scoring whisky
+            let highestScore = 0;
+            let resultWhisky = '';
+            
+            for (const whisky in scores) {
+                if (scores[whisky] > highestScore) {
+                    highestScore = scores[whisky];
+                    resultWhisky = whisky;
+                }
+            }
+            
+            // Handle ties by randomly selecting one of the tied whiskies
+            const tiedWhiskies = [];
+            for (const whisky in scores) {
+                if (scores[whisky] === highestScore) {
+                    tiedWhiskies.push(whisky);
+                }
+            }
+            
+            if (tiedWhiskies.length > 1) {
+                const randomIndex = Math.floor(Math.random() * tiedWhiskies.length);
+                resultWhisky = tiedWhiskies[randomIndex];
+            }
+            
+            // Apply the theme based on result
+            document.body.className = `${resultWhisky}-theme`;
+            
+            // Get full whisky name
+            let whiskyFullName;
+            switch(resultWhisky) {
+                case "glenfiddich": whiskyFullName = "Glenfiddich 14"; break;
+                case "lagavulin": whiskyFullName = "Lagavulin 16"; break;
+                case "glenlivet": whiskyFullName = "Glenlivet 15"; break;
+                case "macallan": whiskyFullName = "Macallan 12"; break;
+                case "indri": whiskyFullName = "Indri Trini Three Wood"; break;
+                case "yamazaki": whiskyFullName = "Yamazaki 12"; break;
+                case "rampur": whiskyFullName = "Rampur Double Cask"; break;
+            }
+            
+            // Update result content
+            resultTitle.textContent = `You are ${whiskyFullName}!`;
+            resultDescription.textContent = whiskyDescriptions[resultWhisky];
+            
+            // Hide quiz, show result
+            document.querySelector('.quiz-container').style.display = 'none';
+            resultContainer.classList.add('active');
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            // Reset state
+            currentQuestion = 0;
+            for (const whisky in scores) {
+                scores[whisky] = 0;
+            }
+            
+            // Reset UI
+            document.querySelector('.quiz-container').style.display = 'block';
+            resultContainer.classList.remove('active');
+            document.body.className = '';
+            
+            // Start quiz again
+            renderQuestion();
+        }
+
+        // Start the quiz when page loads
+        window.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>
