@@ -220,7 +220,7 @@
     <div class="container">
         <header>
             <h1>Which Whisky Are You?</h1>
-            <p>Answer these questions to discover which whisky matches your personality!</p>
+            <p>Take this quick quiz to find out which whisky matches your personality!</p>
         </header>
         
         <div class="quiz-container">
@@ -244,105 +244,84 @@
     <script>
         const questions = [
             {
-                question: "How would you describe your approach to life?",
+                question: "How would you describe yourself to someone who just met you?",
                 options: [
-                    { text: "Balanced and versatile - I adapt well to different situations", whisky: "glenfiddich" },
-                    { text: "Bold and distinctive - I'm not afraid to stand out", whisky: "lagavulin" },
-                    { text: "Smooth and approachable - I get along with nearly everyone", whisky: "glenlivet" },
-                    { text: "Rich and refined - I appreciate the finer things in life", whisky: "macallan" },
-                    { text: "Complex and worldly - I embrace diverse influences", whisky: "indri" },
-                    { text: "Precise and harmonious - I value balance in all things", whisky: "yamazaki" },
-                    { text: "Adventurous with a touch of tradition - I blend old and new", whisky: "rampur" }
+                    { text: "Easy-going explorer", whisky: ["glenfiddich", "glenlivet"] },
+                    { text: "Bold and memorable", whisky: ["lagavulin", "indri"] },
+                    { text: "Refined and elegant", whisky: ["macallan", "yamazaki"] },
+                    { text: "Complex yet approachable", whisky: ["indri", "glenlivet"] }
                 ]
             },
             {
-                question: "What's your preferred social setting?",
+                question: "Your ideal night involves:",
                 options: [
-                    { text: "Casual gatherings with good friends", whisky: "glenfiddich" },
-                    { text: "Intimate fireside conversations", whisky: "lagavulin" },
-                    { text: "Relaxed dinner parties with interesting conversation", whisky: "glenlivet" },
-                    { text: "Upscale events with a sophisticated crowd", whisky: "macallan" },
-                    { text: "Cultural exchanges with diverse groups of people", whisky: "indri" },
-                    { text: "Peaceful, contemplative settings with close friends", whisky: "yamazaki" },
-                    { text: "Vibrant gatherings that blend tradition with contemporary elements", whisky: "rampur" }
+                    { text: "A cozy fireside chat with close friends", whisky: ["lagavulin", "macallan"] },
+                    { text: "A lively dinner party with interesting conversation", whisky: ["glenlivet", "glenfiddich"] },
+                    { text: "A relaxed gathering with good music and drinks", whisky: ["glenfiddich", "yamazaki"] },
+                    { text: "An elegant evening at a sophisticated venue", whisky: ["macallan", "indri"] }
                 ]
             },
             {
-                question: "Which flavor profile appeals to you most?",
+                question: "What catches your attention in a drink?",
                 options: [
-                    { text: "Sweet with hints of pear and oak", whisky: "glenfiddich" },
-                    { text: "Smoky, peaty with sea salt and campfire", whisky: "lagavulin" },
-                    { text: "Smooth, fruity with notes of vanilla", whisky: "glenlivet" },
-                    { text: "Rich sherry with dried fruits and spice", whisky: "macallan" },
-                    { text: "Complex with tropical fruits and subtle spices", whisky: "indri" },
-                    { text: "Delicate, balanced with honeyed fruit", whisky: "yamazaki" },
-                    { text: "Tropical fruits and caramel with a hint of spice", whisky: "rampur" }
+                    { text: "Something smooth and easy to enjoy", whisky: ["glenlivet", "glenfiddich"] },
+                    { text: "Bold, distinct flavors that stand out", whisky: ["lagavulin", "indri"] },
+                    { text: "Rich complexity with layers to discover", whisky: ["macallan", "yamazaki"] },
+                    { text: "Something unusual with surprising twists", whisky: ["indri", "yamazaki"] }
                 ]
             },
             {
-                question: "How do you approach challenges?",
+                question: "When facing a challenge, you usually:",
                 options: [
-                    { text: "With versatility and resourcefulness", whisky: "glenfiddich" },
-                    { text: "Head-on with bold confidence", whisky: "lagavulin" },
-                    { text: "With consistent, methodical effort", whisky: "glenlivet" },
-                    { text: "By applying refined expertise and experience", whisky: "macallan" },
-                    { text: "Drawing from diverse perspectives and approaches", whisky: "indri" },
-                    { text: "With patience, precision and harmony", whisky: "yamazaki" },
-                    { text: "Blending traditional wisdom with innovative thinking", whisky: "rampur" }
+                    { text: "Take a practical, straightforward approach", whisky: ["glenlivet", "glenfiddich"] },
+                    { text: "Dive in confidently with full force", whisky: ["lagavulin", "indri"] },
+                    { text: "Think carefully and create a detailed plan", whisky: ["yamazaki", "macallan"] },
+                    { text: "Blend tradition with innovation", whisky: ["glenfiddich", "indri"] }
                 ]
             },
             {
-                question: "What's your ideal vacation destination?",
+                question: "Which vacation sounds most appealing?",
                 options: [
-                    { text: "The Scottish Highlands - natural beauty with history", whisky: "glenfiddich" },
-                    { text: "Remote coastal island with dramatic landscapes", whisky: "lagavulin" },
-                    { text: "Peaceful countryside with rolling hills", whisky: "glenlivet" },
-                    { text: "Luxury resort with exceptional service", whisky: "macallan" },
-                    { text: "Cultural immersion in a vibrant, exotic location", whisky: "indri" },
-                    { text: "Serene, meditative natural setting with cultural significance", whisky: "yamazaki" },
-                    { text: "Historic destination with both ancient traditions and modern attractions", whisky: "rampur" }
+                    { text: "Exploring beautiful countryside and historic sites", whisky: ["glenfiddich", "glenlivet"] },
+                    { text: "Remote wilderness with dramatic landscapes", whisky: ["lagavulin", "indri"] },
+                    { text: "Luxury retreat with exceptional food and service", whisky: ["macallan", "yamazaki"] },
+                    { text: "Cultural immersion in somewhere exotic", whisky: ["indri", "yamazaki"] }
                 ]
             },
             {
-                question: "How would your friends describe your personality?",
+                question: "Friends would say your best quality is:",
                 options: [
-                    { text: "Approachable yet complex - there's always more to discover", whisky: "glenfiddich" },
-                    { text: "Distinctive and memorable - not for everyone but deeply appreciated", whisky: "lagavulin" },
-                    { text: "Reliable and pleasant - consistently enjoyable company", whisky: "glenlivet" },
-                    { text: "Sophisticated and refined - attentive to quality and detail", whisky: "macallan" },
-                    { text: "Multicultural and nuanced - bringing unexpected combinations", whisky: "indri" },
-                    { text: "Subtle and balanced - thoughtful with hidden depths", whisky: "yamazaki" },
-                    { text: "Warm and inviting with surprising complexity", whisky: "rampur" }
+                    { text: "Being reliable and consistent", whisky: ["glenlivet", "glenfiddich"] },
+                    { text: "Being unique and memorable", whisky: ["lagavulin", "indri"] },
+                    { text: "Your refinement and attention to detail", whisky: ["macallan", "yamazaki"] },
+                    { text: "Your complexity and interesting perspectives", whisky: ["indri", "macallan"] }
                 ]
             },
             {
-                question: "What's your approach to trying new things?",
+                question: "When trying something new, you prefer:",
                 options: [
-                    { text: "I enjoy new experiences within comfortable parameters", whisky: "glenfiddich" },
-                    { text: "I seek out intense, memorable experiences", whisky: "lagavulin" },
-                    { text: "I appreciate reliable excellence with subtle variations", whisky: "glenlivet" },
-                    { text: "I look for premium quality and craftsmanship", whisky: "macallan" },
-                    { text: "I embrace fusion and cross-cultural experiences", whisky: "indri" },
-                    { text: "I value harmony, balance and attention to detail", whisky: "yamazaki" },
-                    { text: "I enjoy traditional experiences with contemporary twists", whisky: "rampur" }
+                    { text: "Familiar elements with just enough novelty", whisky: ["glenlivet", "glenfiddich"] },
+                    { text: "Something completely different and intense", whisky: ["lagavulin", "indri"] },
+                    { text: "High quality with proven craftsmanship", whisky: ["macallan", "glenfiddich"] },
+                    { text: "Creative blends of traditional and modern", whisky: ["macallan", "glenfiddich"] }
                 ]
             }
         ];
 
         const whiskyDescriptions = {
-            glenfiddich: "You are Glenfiddich 14! Like this Bourbon Barrel Reserve, you're versatile and approachable yet complex. You have a perfect balance of tradition and innovation in your life. People are drawn to your warm personality that's simultaneously familiar and intriguing. You adapt well to different situations while maintaining your distinctive character.",
+            glenfiddich: "You're approachable, balanced, and adaptable, just like Glenfiddich 14. People love your easy-going nature, but there's more depth to you than meets the eye. You strike the perfect balance between tradition and trying new things. Like this bourbon barrel-aged Scotch, you bring warmth and complexity to any social situation.",
             
-            lagavulin: "You are Lagavulin 16! Bold, distinctive and unforgettable - you make a strong impression wherever you go. Like this iconic Islay single malt, you're not afraid to stand out with your intense character. Those who appreciate you do so deeply, recognizing your complex layers beneath the powerful first impression. You bring depth and unique perspective to any situation.",
+            lagavulin: "Bold, distinctive, and unforgettable - you're the Lagavulin 16 of personalities! You make a strong impression and aren't afraid to stand out from the crowd. People who appreciate you are devoted fans for life. Like this powerfully smoky Islay whisky, you've got intensity and character that's impossible to ignore.",
             
-            glenlivet: "You are Glenlivet 15! Smooth, refined and consistently excellent - you're the friend everyone loves to have around. Like this classic Speyside whisky finished in French oak, you bring a reliable warmth with subtle complexities that reveal themselves over time. You navigate life's challenges with grace and maintain a balanced approach that others find comforting.",
+            glenlivet: "Smooth, reliable, and universally appealing - you're Glenlivet 15 through and through. Friends value your consistency and warmth. You handle life's challenges with quiet confidence and grace. Like this beloved Speyside classic aged in French oak, you bring a comfortable familiarity with subtle complexities that reward those who pay attention.",
             
-            macallan: "You are Macallan 12! Sophisticated, rich and refined - you appreciate quality in all aspects of life. Like this sherry oak-matured single malt, you bring a depth and complexity to your relationships. You have impeccable taste and an eye for detail. Your warm personality has layers of nuance that reward those who take the time to know you better.",
+            macallan: "Sophisticated, rich, and refined - you're definitely Macallan 12. You appreciate quality in all aspects of life and have excellent taste. Like this sherry-cask matured classic, you bring depth and complexity to relationships. You might seem reserved at first, but those who get to know you discover your warm, multifaceted personality.",
             
-            indri: "You are Indri Trini Three Wood! Innovative and complex, you embody a beautiful fusion of traditions. Like this distinctive Indian whisky aged in three different barrels, you draw from diverse influences to create something uniquely your own. You're adventurous yet grounded, bringing unexpected combinations of ideas and perspectives to everything you do.",
+            indri: "Innovative and complex - you're Indri Trini Three Wood! You blend different influences to create something uniquely yours. You're adventurous yet grounded, bringing fresh perspectives everywhere you go. Like this distinctive Indian whisky aged in three different barrels, you create unexpected combinations that just work perfectly together.",
             
-            yamazaki: "You are Yamazaki 12! Precise, balanced and harmonious - you embody thoughtful refinement. Like this celebrated Japanese whisky, you blend tradition with subtle innovation. You value craftsmanship and attention to detail in all things. Your approach to life is measured and mindful, creating harmony in whatever environment you find yourself in.",
+            yamazaki: "Precise, balanced, and thoughtful - you're Yamazaki 12! You value harmony and craftsmanship in everything you do. Like this celebrated Japanese whisky, you combine tradition with subtle innovation. You might be quiet at first, but your depth of character and attention to detail makes a lasting impression.",
             
-            rampur: "You are Rampur Double Cask! Adventurous yet respectful of tradition, you bridge different worlds with ease. Like this Indian single malt aged in both American oak and sherry casks, you bring together contrasting elements in a harmonious way. You have a warm, inviting personality with surprising depths and a touch of the exotic that makes you truly distinctive."
+            rampur: "Adventurous with a respect for tradition - you're Rampur Double Cask! You effortlessly bridge different worlds and ideas. Like this Indian single malt aged in both American oak and sherry casks, you bring together contrasting elements in perfect harmony. You've got a warm personality with surprising depths and a touch of the exotic."
         };
 
         // State tracking
@@ -386,7 +365,7 @@
                     <h2>${questionData.question}</h2>
                     <div class="options">
                         ${questionData.options.map((option, index) => `
-                            <div class="option" data-whisky="${option.whisky}">
+                            <div class="option" data-whisky-index="${index}">
                                 ${option.text}
                             </div>
                         `).join('')}
@@ -410,8 +389,13 @@
 
         // Handle option click
         function handleOptionClick(e) {
-            const selectedWhisky = e.target.getAttribute('data-whisky');
-            scores[selectedWhisky]++;
+            const optionIndex = e.target.getAttribute('data-whisky-index');
+            const selectedWhiskies = questions[currentQuestion].options[optionIndex].whisky;
+            
+            // Add 1 point to each whisky in the array
+            selectedWhiskies.forEach(whisky => {
+                scores[whisky]++;
+            });
             
             currentQuestion++;
             renderQuestion();
